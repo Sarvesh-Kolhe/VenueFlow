@@ -1,0 +1,6 @@
+{
+  "name": "VenueFlow",
+  "description": "Next-gen venue companion app for seamless crowd navigation, express concessions, live tactical metrics, and premium safety coordination.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": []
+}
