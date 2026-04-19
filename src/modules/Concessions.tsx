@@ -130,7 +130,7 @@ export const ZeroWaitConcessions: React.FC = () => {
                                 key={i} 
                                 onClick={() => setSelectedCategory(cat)}
                                 className={cn(
-                                    "px-6 lg:px-8 py-4 rounded-[20px] text-[11px] font-black uppercase tracking-[0.15em] whitespace-nowrap border transition-all duration-300 text-left flex items-center justify-between group",
+                                    "px-6 lg:px-8 py-4 rounded-[20px] text-[11px] font-black uppercase tracking-[0.15em] whitespace-nowrap border transition-all duration-300 text-left flex items-center justify-between group glass-card",
                                     selectedCategory === cat
                                         ? "bg-white text-black border-white shadow-xl shadow-white/5" 
                                         : "bg-stadium-card text-text-secondary border-stadium-border hover:border-zinc-700 hover:text-white"
@@ -143,7 +143,7 @@ export const ZeroWaitConcessions: React.FC = () => {
                     </div>
 
                     {/* Operational Stats for Concessions */}
-                    <div className="hidden lg:block bg-stadium-card border border-stadium-border p-8 rounded-[32px] mt-10">
+                    <div className="hidden lg:block bg-stadium-card border border-stadium-border p-8 rounded-[32px] mt-10 glass-card">
                         <div className="flex items-center gap-3 mb-6 text-electric-green">
                             <Activity size={20} />
                             <span className="text-[10px] font-black uppercase tracking-widest">Network Health</span>
@@ -171,7 +171,7 @@ export const ZeroWaitConcessions: React.FC = () => {
                                 key={stand.id}
                                 layoutId={stand.id}
                                 onClick={() => setSelectedStand(stand)}
-                                className="bg-stadium-card border border-stadium-border rounded-[32px] p-8 cursor-pointer hover:border-electric-green/30 transition-all active:scale-[0.99] shadow-xl group border-l-4 border-l-transparent hover:border-l-electric-green"
+                                className="bg-stadium-card border border-stadium-border rounded-[32px] p-8 cursor-pointer hover:border-electric-green/30 transition-all active:scale-[0.99] shadow-xl group border-l-4 border-l-transparent hover:border-l-electric-green glass-card"
                             >
                                 <div className="flex justify-between items-start mb-10">
                                     <div>
@@ -265,7 +265,7 @@ export const ZeroWaitConcessions: React.FC = () => {
                                             { name: 'Cold Beverage Set', price: '$8.00', desc: 'Double chilled hydration' },
                                             { name: 'Express Snack', price: '$6.50', desc: 'Low density collection time' }
                                         ].map((item, i) => (
-                                            <div key={i} className="flex flex-col justify-between p-8 bg-stadium-card rounded-[32px] border border-stadium-border hover:border-electric-green/30 transition-all group">
+                                            <div key={i} className="flex flex-col justify-between p-8 bg-stadium-card rounded-[32px] border border-stadium-border hover:border-electric-green/30 transition-all group glass-card">
                                                 <div>
                                                     <div className="flex justify-between items-start mb-2">
                                                         <p className="font-black text-white text-lg tracking-tight uppercase italic">{item.name}</p>
@@ -325,7 +325,7 @@ export const ZeroWaitConcessions: React.FC = () => {
                                     </div>
                                 ) : (
                                     cart.map((item, i) => (
-                                        <div key={i} className="flex justify-between items-center p-8 bg-stadium-card rounded-3xl border border-stadium-border shadow-lg relative overflow-hidden group">
+                                        <div key={i} className="flex justify-between items-center p-8 bg-stadium-card rounded-3xl border border-stadium-border shadow-lg relative overflow-hidden group glass-card">
                                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-electric-green opacity-30" />
                                             <div>
                                                 <p className="font-black text-lg text-white italic uppercase tracking-tighter">{item.name}</p>

@@ -54,7 +54,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeModule, onModuleChange }
               key={tab.id}
               onClick={() => onModuleChange(tab.id as Module)}
               className={cn(
-                "w-full flex items-center justify-between group px-4 py-3 rounded-2xl transition-all duration-300 border",
+                "w-full flex items-center justify-between group px-4 py-3 rounded-2xl transition-all duration-300 border glass-card",
                 isActive 
                   ? "bg-electric-green/5 border-electric-green text-white" 
                   : "bg-transparent border-transparent text-text-secondary hover:bg-white/5 hover:text-white"

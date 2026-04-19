@@ -91,7 +91,7 @@ export const SmartFlowNavigator: React.FC = () => {
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                 {/* Heatmap Section */}
                 <div className="xl:col-span-2 space-y-6">
-                    <div className="bg-stadium-card border border-stadium-border rounded-[32px] overflow-hidden relative shadow-2xl group min-h-[500px] lg:min-h-[600px]">
+                    <div className="bg-stadium-card border border-stadium-border rounded-[32px] overflow-hidden relative shadow-2xl group min-h-[500px] lg:min-h-[600px] glass-card">
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-900/50 to-transparent pointer-events-none" />
                         <svg ref={svgRef} viewBox="0 0 800 600" className="w-full h-full relative z-10 opacity-90" />
                         
@@ -126,7 +126,7 @@ export const SmartFlowNavigator: React.FC = () => {
                             { label: 'Food Court', val: '68%', sub: 'BUSY', color: 'text-yellow-500' },
                             { label: 'Skybridge', val: '05%', sub: 'OPEN', color: 'text-electric-green' },
                         ].map((stat, i) => (
-                            <div key={i} className="bg-stadium-card border border-stadium-border p-5 rounded-2xl flex flex-col justify-between">
+                            <div key={i} className="bg-stadium-card border border-stadium-border p-5 rounded-2xl flex flex-col justify-between glass-card">
                                 <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">{stat.label}</span>
                                 <div className="mt-2">
                                     <span className="text-2xl font-black text-white italic">{stat.val}</span>
@@ -158,7 +158,7 @@ export const SmartFlowNavigator: React.FC = () => {
                                 whileTap={{ scale: 0.98 }}
                                 onClick={() => setSelectedRoute(item)}
                                 className={cn(
-                                    "w-full text-left bg-stadium-card border p-6 rounded-[24px] flex flex-col shadow-md transition-all duration-300 relative overflow-hidden",
+                                    "w-full text-left bg-stadium-card border p-6 rounded-[24px] flex flex-col shadow-md transition-all duration-300 relative overflow-hidden glass-card",
                                     selectedRoute?.from === item.from 
                                         ? "border-electric-green bg-electric-green/[0.03] ring-1 ring-electric-green/20" 
                                         : "border-stadium-border hover:border-white/10"
@@ -193,7 +193,7 @@ export const SmartFlowNavigator: React.FC = () => {
                     </div>
 
                     {/* Operational Insights */}
-                    <div className="bg-electric-green/5 border border-electric-green/10 p-6 rounded-[24px] mt-6">
+                    <div className="bg-electric-green/5 border border-electric-green/10 p-6 rounded-[24px] mt-6 glass-card">
                         <div className="flex items-center gap-3 mb-4 text-electric-green">
                             <Clock size={20} />
                             <span className="text-xs font-black uppercase tracking-widest">Time Efficiency Insight</span>

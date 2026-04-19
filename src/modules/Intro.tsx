@@ -140,7 +140,7 @@ export const IntroPage: React.FC<IntroPageProps> = ({ onComplete }) => {
                         { label: 'Stats', icon: Activity, desc: 'Live tactical metrics' },
                         { label: 'SOS', icon: ShieldAlert, desc: 'Instant support uplink' }
                     ].map((feat, i) => (
-                        <div key={i} className="bg-stadium-card/40 border border-white/5 p-4 rounded-2xl flex flex-col items-center text-center gap-2 group hover:border-electric-green/30 transition-colors">
+                        <div key={i} className="bg-stadium-card/40 border border-white/5 p-4 rounded-2xl flex flex-col items-center text-center gap-2 group hover:border-electric-green/30 transition-colors glass-card">
                             <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-center text-zinc-500 group-hover:text-electric-green transition-colors">
                                 <feat.icon size={18} />
                             </div>
@@ -179,7 +179,7 @@ export const IntroPage: React.FC<IntroPageProps> = ({ onComplete }) => {
                    </div>
                 </div>
 
-                <div className="bg-stadium-card/20 border border-white/5 p-10 rounded-[40px] relative overflow-hidden group">
+                <div className="bg-stadium-card/20 border border-white/5 p-10 rounded-[40px] relative overflow-hidden group glass-card">
                     <div className="absolute top-0 right-0 p-6">
                         <Cpu size={32} className="text-electric-green opacity-20" />
                     </div>

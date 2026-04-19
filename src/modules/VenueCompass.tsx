@@ -178,7 +178,7 @@ export const VenueCompass: React.FC = () => {
                                 speak(`Navigating to ${item.label}. ${navInstructions[0]}`);
                             }}
                             className={cn(
-                                "w-full text-left p-6 rounded-[32px] border transition-all flex items-center gap-6 group",
+                                "w-full text-left p-6 rounded-[32px] border transition-all flex items-center gap-6 group glass-card",
                                 activeDestination === item.label 
                                     ? "bg-white text-black border-white shadow-2xl scale-105 z-10" 
                                     : "bg-stadium-card border-stadium-border text-zinc-500 hover:border-zinc-700 hover:text-white"
@@ -201,7 +201,7 @@ export const VenueCompass: React.FC = () => {
                          <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-600 px-2 lg:mb-4 italic">Reporting Suite</h3>
                          <button 
                             onClick={() => setShowReportModal(true)}
-                            className="w-full bg-electric-green/5 border border-electric-green/10 p-8 rounded-[40px] text-center group hover:bg-electric-green/10 transition-all flex flex-col items-center gap-4"
+                            className="w-full bg-electric-green/5 border border-electric-green/10 p-8 rounded-[40px] text-center group hover:bg-electric-green/10 transition-all flex flex-col items-center gap-4 glass-card"
                          >
                             <div className="w-16 h-16 bg-electric-green text-black rounded-3xl flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
                                 <PackageSearch size={32} />
@@ -308,7 +308,7 @@ export const VenueCompass: React.FC = () => {
 
                 {/* Right Side: Parking Telemetry */}
                 <div className="xl:col-span-1 space-y-8">
-                    <section className="bg-stadium-card border border-stadium-border rounded-[48px] overflow-hidden shadow-2xl">
+                    <section className="bg-stadium-card border border-stadium-border rounded-[48px] overflow-hidden shadow-2xl glass-card">
                         <div className="p-8 border-b border-stadium-border bg-white/[0.02]">
                             <div className="flex items-center justify-between mb-8">
                                 <div className="flex flex-col">
@@ -356,7 +356,7 @@ export const VenueCompass: React.FC = () => {
                             <div className="space-y-3 pt-4 border-t border-stadium-border">
                                 <p className="text-[10px] font-black text-zinc-700 uppercase tracking-[0.3em] mb-4 italic">Sensor Clusters</p>
                                 {parkingLots.filter(l => l.id !== bestLot.id).map(lot => (
-                                    <div key={lot.id} className="flex items-center justify-between p-5 bg-zinc-950/40 rounded-2xl border border-white/[0.03] group hover:border-white/10 transition-all">
+                                    <div key={lot.id} className="flex items-center justify-between p-5 bg-zinc-950/40 rounded-2xl border border-white/[0.03] group hover:border-white/10 transition-all glass-card">
                                         <div className="flex items-center gap-4">
                                             <div className={cn("w-2 h-2 rounded-full", lot.occupancy > 80 ? "bg-red-600" : "bg-zinc-800")} />
                                             <div>
@@ -380,7 +380,7 @@ export const VenueCompass: React.FC = () => {
                             <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-600 px-2 leading-none italic">Log Archives</h3>
                             <div className="space-y-4">
                                 {reportedItems.map(item => (
-                                    <div key={item.id} className="bg-stadium-card border border-stadium-border p-6 rounded-[32px] flex items-center justify-between shadow-xl relative overflow-hidden group">
+                                    <div key={item.id} className="bg-stadium-card border border-stadium-border p-6 rounded-[32px] flex items-center justify-between shadow-xl relative overflow-hidden group glass-card">
                                         <div className="flex items-center gap-5">
                                             <div className="w-12 h-12 rounded-2xl bg-zinc-950 flex items-center justify-center text-zinc-500 border border-stadium-border shadow-inner">
                                                 <PackageSearch size={22} />

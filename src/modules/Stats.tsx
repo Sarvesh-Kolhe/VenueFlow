@@ -55,7 +55,7 @@ export const LivePulseDashboard: React.FC = () => {
             </header>
 
             {/* Expansive Scoreboard Container */}
-            <div className="bg-stadium-card border border-stadium-border p-10 lg:p-16 rounded-[48px] overflow-hidden relative shadow-2xl group min-h-[400px] flex items-center justify-center">
+            <div className="bg-stadium-card border border-stadium-border p-10 lg:p-16 rounded-[48px] overflow-hidden relative shadow-2xl group min-h-[400px] flex items-center justify-center glass-card">
                  <div className="absolute inset-0 bg-gradient-to-b from-electric-green/5 via-transparent to-transparent pointer-events-none" />
                  
                  <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-12 lg:gap-24 relative z-10 w-full">
@@ -135,7 +135,7 @@ export const LivePulseDashboard: React.FC = () => {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id as any)}
                                 className={cn(
-                                    "w-full flex items-center gap-6 p-6 rounded-[32px] border transition-all duration-300 relative group text-left",
+                                    "w-full flex items-center gap-6 p-6 rounded-[32px] border transition-all duration-300 relative group text-left glass-card",
                                     isActive 
                                         ? "bg-white text-black border-white shadow-2xl shadow-white/5" 
                                         : "bg-stadium-card border-stadium-border text-zinc-500 hover:border-zinc-700 hover:text-white"
@@ -205,7 +205,7 @@ export const LivePulseDashboard: React.FC = () => {
                                             { time: "10:25", event: "Incredible Interception", type: "Defensive Matrix", cam: "CAM 07" },
                                             { time: "08:12", event: "Field Goal Hawkeyes", type: "Score Event", cam: "CAM 02" }
                                         ].map((h, i) => (
-                                            <div key={i} className="bg-stadium-card border border-stadium-border p-8 rounded-[32px] flex items-center justify-between group cursor-pointer hover:border-electric-green/30 transition-all shadow-xl">
+                                            <div key={i} className="bg-stadium-card border border-stadium-border p-8 rounded-[32px] flex items-center justify-between group cursor-pointer hover:border-electric-green/30 transition-all shadow-xl glass-card">
                                                 <div className="flex items-center gap-6">
                                                     <div className="w-16 h-16 rounded-[20px] bg-zinc-950 flex items-center justify-center text-electric-green border border-stadium-border shadow-inner group-hover:bg-electric-green group-hover:text-black transition-colors">
                                                         <Play size={24} fill="currentColor" className="ml-1" />
@@ -237,7 +237,7 @@ export const LivePulseDashboard: React.FC = () => {
                                          { label: 'Timeout Availability', v1: '2', v2: '1', p: 0.66, unit: '' },
                                          { label: 'Penalty Violations', v1: '4', v2: '7', p: 0.3, unit: '' },
                                      ].map((s, i) => (
-                                        <div key={i} className="bg-stadium-card border border-stadium-border p-8 rounded-[40px] shadow-2xl group transition-all hover:translate-y-[-4px]">
+                                        <div key={i} className="bg-stadium-card border border-stadium-border p-8 rounded-[40px] shadow-2xl group transition-all hover:translate-y-[-4px] glass-card">
                                             <p className="text-[11px] text-zinc-500 font-black uppercase tracking-[0.25em] mb-8 leading-none">{s.label}</p>
                                             <div className="flex justify-between items-end mb-6">
                                                 <div className="flex flex-col">
@@ -255,7 +255,7 @@ export const LivePulseDashboard: React.FC = () => {
                                         </div>
                                      ))}
                                  </div>
-                                 <div className="bg-stadium-card border border-stadium-border p-12 lg:p-16 rounded-[48px] shadow-3xl relative overflow-hidden">
+                                 <div className="bg-stadium-card border border-stadium-border p-12 lg:p-16 rounded-[48px] shadow-3xl relative overflow-hidden glass-card">
                                       <div className="absolute top-0 right-0 w-96 h-96 bg-electric-green/[0.03] blur-[120px] rounded-full" />
                                       <div className="flex items-center gap-6 mb-12">
                                           <div className="w-12 h-12 bg-zinc-950 rounded-2xl flex items-center justify-center text-electric-green border border-stadium-border shadow-inner">
@@ -354,7 +354,7 @@ export const LivePulseDashboard: React.FC = () => {
                                             { label: 'Dynamic Range', val: 'ULTRA-HD', sub: 'Multi-Cam Aggregate' },
                                             { label: 'Spatial Sync', val: 'ACTIVE', sub: 'Precise field mapping' },
                                         ].map((item, i) => (
-                                            <div key={i} className="bg-stadium-card border border-stadium-border p-8 rounded-[32px] flex items-center justify-between group hover:border-white/10 transition-all">
+                                            <div key={i} className="bg-stadium-card border border-stadium-border p-8 rounded-[32px] flex items-center justify-between group hover:border-white/10 transition-all glass-card">
                                                 <div>
                                                     <p className="text-[10px] font-black text-zinc-600 uppercase tracking-widest mb-1">{item.label}</p>
                                                     <h5 className="text-2xl font-black text-white italic uppercase tracking-tighter leading-none">{item.val}</h5>

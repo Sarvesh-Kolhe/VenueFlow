@@ -68,7 +68,7 @@ export const SettingsModule: React.FC = () => {
 
                 {/* Content Area */}
                 <div className="xl:col-span-9 space-y-8">
-                    <div className="bg-stadium-card border border-stadium-border rounded-[48px] p-8 lg:p-12 shadow-3xl overflow-hidden relative">
+                    <div className="bg-stadium-card border border-stadium-border rounded-[48px] p-8 lg:p-12 shadow-3xl overflow-hidden relative glass-card">
                         <div className="absolute top-0 right-0 p-8 flex gap-2">
                              <div className="w-1 h-3 bg-electric-green/40 rounded-full" />
                              <div className="w-1 h-2 bg-electric-green/20 rounded-full" />
@@ -203,7 +203,7 @@ export const SettingsModule: React.FC = () => {
                                         { label: 'Time Horizon', val: 'UTC+5:30 (Current)', icon: Zap },
                                         { label: 'Data Sync Mode', val: 'Ultra-Low Latency', icon: Smartphone }
                                      ].map((item, i) => (
-                                        <div key={i} className="flex items-center justify-between p-6 bg-stadium-black border border-white/5 rounded-[32px] group hover:border-zinc-700 transition-all">
+                                        <div key={i} className="flex items-center justify-between p-6 bg-stadium-black border border-white/5 rounded-[32px] group hover:border-zinc-700 transition-all glass-card">
                                             <div className="flex items-center gap-5">
                                                 <div className="p-3 bg-zinc-900 rounded-xl text-zinc-600 group-hover:text-white transition-colors">
                                                     <item.icon size={20} />
@@ -221,7 +221,7 @@ export const SettingsModule: React.FC = () => {
                         )}
                     </div>
 
-                    <div className="p-8 bg-electric-green/5 border border-electric-green/10 rounded-[32px] flex items-center justify-between">
+                    <div className="p-8 bg-electric-green/5 border border-electric-green/10 rounded-[32px] flex items-center justify-between glass-card">
                          <div className="flex items-center gap-6">
                             <div className="w-12 h-12 bg-stadium-card rounded-2xl flex items-center justify-center text-electric-green shadow-inner">
                                 <Heart size={24} />
@@ -245,7 +245,7 @@ const ToggleSetting: React.FC<{ title: string; desc: string; defaultChecked?: bo
     const [checked, setChecked] = useState(defaultChecked);
 
     return (
-        <div className="flex items-center justify-between p-6 bg-stadium-black border border-white/5 rounded-[32px] group transition-all hover:border-zinc-700">
+        <div className="flex items-center justify-between p-6 bg-stadium-black border border-white/5 rounded-[32px] group transition-all hover:border-zinc-700 glass-card">
             <div className="space-y-1">
                 <p className="text-lg font-black text-white italic uppercase tracking-tight group-hover:text-electric-green transition-colors">{title}</p>
                 <p className="text-xs text-zinc-500 font-medium leading-relaxed max-w-md">{desc}</p>
@@ -267,7 +267,7 @@ const ToggleSetting: React.FC<{ title: string; desc: string; defaultChecked?: bo
 };
 
 const ActionButton: React.FC<{ icon: any; title: string; desc: string }> = ({ icon: Icon, title, desc }) => (
-    <button className="flex flex-col items-start p-8 bg-stadium-black border border-white/5 rounded-[40px] text-left group hover:border-zinc-700 transition-all hover:shadow-2xl">
+    <button className="flex flex-col items-start p-8 bg-stadium-black border border-white/5 rounded-[40px] text-left group hover:border-zinc-700 transition-all hover:shadow-2xl glass-card">
         <div className="p-4 bg-zinc-900 rounded-2xl text-zinc-600 mb-6 group-hover:text-electric-green group-hover:bg-electric-green/10 transition-all">
             <Icon size={24} />
         </div>

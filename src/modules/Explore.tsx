@@ -43,7 +43,7 @@ export const Dashboard: React.FC = () => {
         <motion.div 
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="xl:col-span-2 bg-stadium-card border border-stadium-border p-8 lg:p-10 rounded-[32px] relative overflow-hidden shadow-2xl group flex flex-col justify-between min-h-[320px] lg:min-h-[400px]"
+            className="xl:col-span-2 bg-stadium-card border border-stadium-border p-8 lg:p-10 rounded-[32px] relative overflow-hidden shadow-2xl group flex flex-col justify-between min-h-[320px] lg:min-h-[400px] glass-card"
         >
             <div className="absolute -right-20 -top-20 w-80 h-80 bg-electric-green/5 blur-[120px] rounded-full group-hover:bg-electric-green/10 transition-all duration-700" />
             <div className="relative z-10">
@@ -108,7 +108,7 @@ export const Dashboard: React.FC = () => {
            <motion.div 
              key={idx}
              whileHover={{ y: -4, borderColor: 'rgba(255,255,255,0.15)' }}
-             className="bg-stadium-card border border-stadium-border p-6 rounded-[28px] transition-all shadow-lg group flex flex-col justify-between hover:shadow-electric-green/5"
+             className="bg-stadium-card border border-stadium-border p-6 rounded-[28px] transition-all shadow-lg group flex flex-col justify-between hover:shadow-electric-green/5 glass-card"
            >
              <div className="flex justify-between items-start mb-6">
                 <span className="text-[10px] uppercase tracking-[0.2em] text-text-secondary font-black">{item.label}</span>
@@ -123,7 +123,7 @@ export const Dashboard: React.FC = () => {
       </div>
 
       {/* gamification & rewards - expansive for web */}
-      <div className="bg-stadium-card border border-stadium-border p-8 lg:p-10 rounded-[32px] shadow-xl relative overflow-hidden flex flex-col lg:flex-row lg:items-center gap-8">
+      <div className="bg-stadium-card border border-stadium-border p-8 lg:p-10 rounded-[32px] shadow-xl relative overflow-hidden flex flex-col lg:flex-row lg:items-center gap-8 glass-card">
          <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-electric-green/5 to-transparent pointer-events-none" />
          
          <div className="flex-1">

@@ -96,7 +96,7 @@ export const SafetyNetCoordination: React.FC = () => {
             <div className="flex flex-col gap-16 items-center">
                 {/* Tactical SOS Center */}
                 <div className="w-full max-w-2xl">
-                    <section className="bg-stadium-card border border-stadium-border rounded-[32px] p-6 text-center space-y-6 shadow-3xl relative overflow-hidden group">
+                    <section className="bg-stadium-card border border-stadium-border rounded-[32px] p-6 text-center space-y-6 shadow-3xl relative overflow-hidden group glass-card">
                         <div className="absolute inset-0 bg-danger-sos/[0.01] hover:bg-danger-sos/[0.03] transition-colors" />
                         <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-danger-sos/30 to-transparent" />
                         
@@ -167,14 +167,14 @@ export const SafetyNetCoordination: React.FC = () => {
                              </div>
 
                              <div className="flex-1 min-h-0">
-                                <div className="bg-stadium-card border border-stadium-border rounded-[40px] overflow-hidden shadow-2xl h-full flex flex-col">
+                                <div className="bg-stadium-card border border-stadium-border rounded-[40px] overflow-hidden shadow-2xl h-full flex flex-col glass-card">
                                     <div className="flex-1 overflow-y-auto no-scrollbar space-y-px bg-white/[0.02]">
                                         {[
                                             { time: '2M AGO', type: 'ADMIN', content: 'Post-game fireworks starting in 15m. All exit nodes primed.', color: 'border-electric-green/20', icon: Zap },
                                             { time: '12M AGO', type: 'SECURITY', content: 'Heavy congestion detected at Gate 4. Rerouting Level 2 guests.', color: 'border-white/5', icon: ShieldCheck },
                                             { time: '45M AGO', type: 'WEATHER', content: 'Zero precipitation expected. Thermal stability maintained.', color: 'border-white/5', icon: Radio }
                                         ].map((alert, i) => (
-                                            <div key={i} className="bg-stadium-card p-6 relative overflow-hidden transition-all group hover:bg-white/[0.01]">
+                                            <div key={i} className="bg-stadium-card p-6 relative overflow-hidden transition-all group hover:bg-white/[0.01] glass-card">
                                                 <div className="absolute top-0 left-0 w-1 h-full bg-zinc-900 group-hover:bg-zinc-800 transition-colors" />
                                                 <div className="flex items-center justify-between mb-3">
                                                     <div className="flex items-center gap-2">
@@ -209,14 +209,14 @@ export const SafetyNetCoordination: React.FC = () => {
                             </div>
 
                             <div className="flex-1 min-h-0">
-                                <div className="bg-stadium-card border border-stadium-border rounded-[40px] overflow-hidden shadow-2xl h-full flex flex-col">
+                                <div className="bg-stadium-card border border-stadium-border rounded-[40px] overflow-hidden shadow-2xl h-full flex flex-col glass-card">
                                     <div className="divide-y divide-white/[0.03] overflow-y-auto no-scrollbar">
                                         {[
                                             { name: "Sarah (Lead)", pos: "SEC 104, ROW G", status: "STATIONARY", battery: 84, color: 'text-electric-green' },
                                             { name: "Jake", pos: "NORTH CONCOURSE", status: "TRANSIT", battery: 22, color: 'text-orange-400' },
                                             { name: "Emma", pos: "VIP LOUNGE 3", status: "SECURE", battery: 98, color: 'text-purple-400' }
                                         ].map((user, i) => (
-                                            <div key={i} className="p-5 lg:p-6 flex items-center justify-between hover:bg-white/[0.01] transition-all group">
+                                            <div key={i} className="p-5 lg:p-6 flex items-center justify-between hover:bg-white/[0.01] transition-all group glass-card">
                                                 <div className="flex items-center gap-4 lg:gap-6">
                                                     <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-stadium-black border border-stadium-border p-1 shadow-inner relative flex-shrink-0 group-hover:border-zinc-700 transition-colors">
                                                         <img src={`https://picsum.photos/seed/${user.name}/160/160`} alt={user.name} className="w-full h-full rounded-lg lg:rounded-xl object-cover grayscale-[0.3]" referrerPolicy="no-referrer" />
@@ -287,7 +287,7 @@ export const SafetyNetCoordination: React.FC = () => {
                             { label: 'Medical ID', icon: Smartphone, desc: 'Adaptive Bio Data', color: 'text-purple-400' },
                             { label: 'Access Log', icon: Wifi, desc: 'Secure Auth History', color: 'text-orange-400' }
                         ].map((node, i) => (
-                            <div key={i} className="bg-stadium-card border border-stadium-border p-6 rounded-[32px] flex items-center gap-4 group hover:border-zinc-700 transition-all shadow-xl">
+                            <div key={i} className="bg-stadium-card border border-stadium-border p-6 rounded-[32px] flex items-center gap-4 group hover:border-zinc-700 transition-all shadow-xl glass-card">
                                 <div className="w-12 h-12 bg-zinc-950 rounded-xl flex items-center justify-center text-zinc-600 border border-white/[0.03] group-hover:text-white transition-colors shadow-inner">
                                     <node.icon size={20} className={node.color} />
                                 </div>
