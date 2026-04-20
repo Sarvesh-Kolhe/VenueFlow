@@ -18,8 +18,10 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Bell, Search, User, X } from 'lucide-react';
 import { NotificationsPanel, type Notification } from './components/NotificationsPanel';
 import { APP_NAME } from './constants';
+import { useAuth } from './context/AuthContext';
 
 export default function App() {
+  const { user, signIn, logout } = useAuth();
   const [showIntro, setShowIntro] = useState(true);
   const [activeModule, setActiveModule] = useState<Module>('dashboard');
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -178,23 +180,31 @@ export default function App() {
             </div>
             <div className="h-6 w-[1px] bg-stadium-border mx-2" />
             <button 
-              onClick={() => setActiveModule('settings')}
+              onClick={() => user ? setActiveModule('settings') : signIn()}
               className="flex items-center gap-3 group px-4 py-2 rounded-2xl hover:bg-white/5 transition-all"
-              aria-label="User Profile and Settings"
+              aria-label={user ? "User Profile and Settings" : "Sign In"}
             >
                <div className="text-right">
-                  <p className="text-sm font-black tracking-tight leading-none uppercase group-hover:text-electric-green transition-colors">S. Kolhe</p>
-                  <p className="text-[10px] text-electric-green font-bold uppercase tracking-widest mt-1">Section 104 • Row B</p>
+                  <p className="text-sm font-black tracking-tight leading-none uppercase group-hover:text-electric-green transition-colors">
+                    {user ? user.displayName?.split(' ')[0] || user.email?.split('@')[0] : 'Sign In'}
+                  </p>
+                  <p className="text-[10px] text-electric-green font-bold uppercase tracking-widest mt-1">
+                    {user ? 'Section 104 • Row B' : 'Access Restricted'}
+                  </p>
                </div>
-               <div className="w-10 h-10 rounded-full bg-stadium-card border border-stadium-border flex items-center justify-center group-hover:border-electric-green transition-colors">
-                  <User size={20} className="text-zinc-500 group-hover:text-electric-green transition-colors" />
+               <div className="w-10 h-10 rounded-full bg-stadium-card border border-stadium-border flex items-center justify-center group-hover:border-electric-green transition-colors overflow-hidden">
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <User size={20} className="text-zinc-500 group-hover:text-electric-green transition-colors" />
+                  )}
                </div>
             </button>
           </div>
         </header>
 
         {/* Main Content Area */}
-        <main className="flex-1 w-full bg-stadium-black relative pb-24 lg:pb-0">
+        <main className="flex-1 w-full bg-stadium-black relative pb-24 lg:pb-0" id="main-content" role="main">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeModule}

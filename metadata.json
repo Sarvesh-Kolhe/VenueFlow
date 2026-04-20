@@ -1,6 +1,6 @@
 {
-  "name": "VenueFlow",
-  "description": "Next-gen venue companion app for seamless crowd navigation, express concessions, live tactical metrics, and premium safety coordination.",
-  "requestFramePermissions": ["geolocation"],
+  "name": "VenueFlow Intelligence",
+  "description": "Premium stadium companion featuring SmartFlow navigation, AI-driven crowd diagnostics, ZeroWait express ordering, and real-time tactical safety coordination.",
+  "requestFramePermissions": ["geolocation", "camera", "microphone"],
   "majorCapabilities": []
 }

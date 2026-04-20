@@ -3,10 +3,15 @@ import { describe, it, expect, vi } from 'vitest';
 import App from '../App';
 import React from 'react';
 
-// Mock gemini to avoid async state updates during test
-vi.mock('../lib/gemini', () => ({
-  generateStadiumInsights: vi.fn().mockResolvedValue('Mocked Insight'),
-  ai: {}
+// Mock AuthContext
+vi.mock('../context/AuthContext', () => ({
+  useAuth: () => ({
+    user: { displayName: 'Test User', email: 'test@example.com' },
+    signIn: vi.fn(),
+    logout: vi.fn(),
+    loading: false
+  }),
+  AuthProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>
 }));
 
 describe('App Component', () => {

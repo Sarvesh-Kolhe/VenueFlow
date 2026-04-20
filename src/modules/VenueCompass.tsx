@@ -17,6 +17,9 @@ import {
     Radio
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useAuth } from '../context/AuthContext';
+import { db, handleFirestoreError } from '../lib/firebase';
+import { collection, addDoc, serverTimestamp, query, where, orderBy, onSnapshot } from 'firebase/firestore';
 
 interface ParkingLot {
     id: string;
@@ -47,6 +50,7 @@ export const VenueCompass: React.FC = () => {
     const [itemDesc, setItemDesc] = useState('');
     const [location, setLocation] = useState('');
     const [isSpeechEnabled, setIsSpeechEnabled] = useState(false);
+    const { user, signIn } = useAuth();
     
     // Feature Persistence
     const [reportedItems, setReportedItems] = useState<ReportedItem[]>([]);
@@ -56,6 +60,33 @@ export const VenueCompass: React.FC = () => {
     // Parking States
     const [parkingLots, setParkingLots] = useState<ParkingLot[]>(INITIAL_PARKING_LOTS);
     const [selectedGate, setSelectedGate] = useState<string>('Gate 4');
+
+    // Real-time fetching of user's reports
+    useEffect(() => {
+        if (!user) {
+            setReportedItems([]);
+            return;
+        }
+
+        const q = query(
+            collection(db, 'reports'),
+            where('userId', '==', user.uid),
+            orderBy('timestamp', 'desc')
+        );
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const items = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+                timestamp: doc.data().timestamp?.toDate()?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) || 'Pending...'
+            } as ReportedItem));
+            setReportedItems(items);
+        }, (error) => {
+            console.error("Error fetching reports:", error);
+        });
+
+        return () => unsubscribe();
+    }, [user]);
 
     const speak = useCallback((text: string) => {
         if (!isSpeechEnabled || !window.speechSynthesis) return;
@@ -105,21 +136,27 @@ export const VenueCompass: React.FC = () => {
         })[0];
     }, [parkingLots, selectedGate]);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        if (!user) {
+            await signIn();
+            return;
+        }
+
         setReportStatus('submitting');
         const announcement = `Reporting lost item: ${itemDesc} at ${location}. Submitting now.`;
         speak(announcement);
         
-        setTimeout(() => {
-            const newItem: ReportedItem = {
-                id: Math.random().toString(36).substr(2, 9),
+        try {
+            await addDoc(collection(db, 'reports'), {
+                userId: user.uid,
                 description: itemDesc,
                 location: location,
-                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                status: 'Searching'
-            };
-            setReportedItems(prev => [newItem, ...prev]);
+                status: 'Searching',
+                timestamp: serverTimestamp()
+            });
+
             setReportStatus('success');
             speak("Report received successfully. We will notify you if your item is found.");
             setTimeout(() => {
@@ -128,7 +165,10 @@ export const VenueCompass: React.FC = () => {
                 setItemDesc('');
                 setLocation('');
             }, 2500);
-        }, 1500);
+        } catch (error) {
+            handleFirestoreError(error, 'create', 'reports');
+            setReportStatus('idle');
+        }
     };
 
     return (
@@ -237,7 +277,13 @@ export const VenueCompass: React.FC = () => {
                     </div>
 
                     <div className="aspect-square lg:aspect-video bg-stadium-card border border-stadium-border rounded-[56px] relative overflow-hidden group shadow-3xl">
-                         <img src="https://picsum.photos/seed/stadium-blueprint/1920/1080" alt="Venue Blueprint" className="w-full h-full object-cover opacity-10 grayscale group-hover:scale-105 transition-transform duration-[60s] ease-linear" referrerPolicy="no-referrer" />
+                         <img 
+                            src="https://maps.googleapis.com/maps/api/staticmap?center=40.712776,-74.005974&zoom=14&size=800x450&maptype=roadmap&markers=color:green%7Clabel:V%7C40.712776,-74.005974&key=AIzaSyA_placeholder" 
+                            alt="City-wide Venue Access Map" 
+                            className="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-[60s] ease-linear" 
+                            referrerPolicy="no-referrer" 
+                         />
+                         <div className="absolute inset-0 bg-black/40 pointer-events-none" />
                          
                          {/* Navigation Path Mockup */}
                          <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40">

@@ -16,7 +16,7 @@ interface BottomNavProps {
   onModuleChange: (module: Module) => void;
 }
 
-export const BottomNav: React.FC<BottomNavProps> = ({ activeModule, onModuleChange }) => {
+export const BottomNav: React.FC<BottomNavProps> = React.memo(({ activeModule, onModuleChange }) => {
   const tabs = [
     { id: 'dashboard', icon: Home, label: 'Home' },
     { id: 'navigator', icon: Navigation, label: 'Flow' },
@@ -74,4 +74,4 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeModule, onModuleChan
       </div>
     </nav>
   );
-};
+});

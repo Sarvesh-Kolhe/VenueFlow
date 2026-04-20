@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile data including biometric signal status and preferences.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "biometricSync": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Order": {
+      "title": "Concession Order",
+      "description": "An order for concessions at a specific stand.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "standId": { "type": "string" },
+        "standName": { "type": "string" },
+        "items": { 
+          "type": "array"
+        },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "authorized", "ready", "picked_up"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "standId", "items", "total", "status", "createdAt"]
+    },
+    "LostAndFoundReport": {
+      "title": "Lost Item Report",
+      "description": "A report for a lost item within the venue.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "description": { "type": "string" },
+        "location": { "type": "string" },
+        "status": { "type": "string", "enum": ["Searching", "Found", "Pending"] },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "description", "location", "status", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Priority concession orders"
+    },
+    "/reports/{reportId}": {
+      "schema": "LostAndFoundReport",
+      "description": "Lost and found recovery logs"
+    }
+  }
+}

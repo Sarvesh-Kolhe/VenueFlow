@@ -15,6 +15,9 @@ import {
     Activity
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useAuth } from '../context/AuthContext';
+import { db, handleFirestoreError } from '../lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 interface Stand {
     id: string;
@@ -40,6 +43,7 @@ export const ZeroWaitConcessions: React.FC = () => {
     const [isCheckingOut, setIsCheckingOut] = useState(false);
     const [orderSuccess, setOrderSuccess] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const { user, signIn } = useAuth();
 
     const addToCart = (name: string, price: string, standName: string) => {
         setCart(prev => {
@@ -52,10 +56,24 @@ export const ZeroWaitConcessions: React.FC = () => {
     const cartTotal = cart.reduce((acc, item) => acc + (parseFloat(item.price.replace('$', '')) * item.count), 0).toFixed(2);
     const cartCount = cart.reduce((a, b) => a + b.count, 0);
 
-    const handleCheckout = () => {
+    const handleCheckout = async () => {
+        if (!user) {
+            await signIn();
+            return;
+        }
+
         setIsCheckingOut(true);
-        setTimeout(() => {
-            setIsCheckingOut(false);
+        try {
+            await addDoc(collection(db, 'orders'), {
+                userId: user.uid,
+                standId: selectedStand?.id || 'unknown',
+                standName: selectedStand?.name || 'Unknown Stand',
+                items: cart,
+                total: parseFloat(cartTotal),
+                status: 'authorized',
+                createdAt: serverTimestamp()
+            });
+
             setOrderSuccess(true);
             setCart([]);
             setTimeout(() => {
@@ -63,7 +81,11 @@ export const ZeroWaitConcessions: React.FC = () => {
                 setShowCart(false);
                 setSelectedStand(null);
             }, 3000);
-        }, 2000);
+        } catch (error) {
+            handleFirestoreError(error, 'create', 'orders');
+        } finally {
+            setIsCheckingOut(false);
+        }
     };
 
     const filteredStands = selectedCategory === 'All' 

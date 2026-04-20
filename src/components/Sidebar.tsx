@@ -19,7 +19,7 @@ interface SidebarProps {
   onModuleChange: (module: Module) => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeModule, onModuleChange }) => {
+export const Sidebar: React.FC<SidebarProps> = React.memo(({ activeModule, onModuleChange }) => {
   const tabs = [
     { id: 'dashboard', icon: Home, label: 'Experience Hub' },
     { id: 'navigator', icon: Navigation, label: 'SmartFlow Navigator' },
@@ -129,4 +129,4 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeModule, onModuleChange }
       </div>
     </aside>
   );
-};
+});

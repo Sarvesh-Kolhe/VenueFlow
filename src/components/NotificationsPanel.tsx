@@ -32,6 +32,9 @@ export const NotificationsPanel: React.FC<NotificationsPanelProps> = ({
       exit={{ opacity: 0, scale: 0.95, y: -20 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
       className="absolute top-full right-0 mt-4 w-[280px] sm:w-[360px] md:w-[400px] bg-stadium-card border border-stadium-border rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] z-50 overflow-hidden backdrop-blur-2xl lg:right-[-20px]"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Notifications Panel"
     >
       <div className="p-6 border-b border-stadium-border flex items-center justify-between">
         <div className="flex items-center gap-3">

@@ -12,21 +12,26 @@ import {
   BrainCircuit,
   Sparkles
 } from 'lucide-react';
-import { generateStadiumInsights } from '../lib/gemini';
+
+const INSIGHTS = [
+  "North Gate flow is currently at 85% efficiency. Optimal entry detected.",
+  "Halftime surge predicted in 12 mins. Concessions in Section 104 have low wait times.",
+  "Your sustainability rank has reached top 5%. Keep using SmartFlow routes.",
+  "Traffic on the M1 highway is clearing. Expect a 15-minute reduction in travel time.",
+  "The Lions currently hold 68% possession. Tactical replay available in Module 2."
+];
 
 export const Dashboard: React.FC = () => {
-  const [aiInsight, setAiInsight] = useState<string>('Initializing AI core...');
-  const [isAiLoading, setIsAiLoading] = useState(true);
+  const [insightIndex, setInsightIndex] = useState(0);
+  const [isAiLoading, setIsAiLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchInsight = async () => {
-      setIsAiLoading(true);
-      const insight = await generateStadiumInsights('Fan Experience Dashboard');
-      setAiInsight(insight);
+  const rotateInsight = () => {
+    setIsAiLoading(true);
+    setTimeout(() => {
+      setInsightIndex((prev) => (prev + 1) % INSIGHTS.length);
       setIsAiLoading(false);
-    };
-    fetchInsight();
-  }, []);
+    }, 400);
+  };
 
   return (
     <div className="p-6 lg:p-10 space-y-8 lg:space-y-12 max-w-7xl mx-auto bg-stadium-black min-h-screen">
@@ -54,7 +59,11 @@ export const Dashboard: React.FC = () => {
       </header>
 
       {/* AI Insights Bar */}
-      <div className="bg-zinc-950 border border-stadium-border rounded-2xl p-4 flex items-center gap-4 relative overflow-hidden group">
+      <div 
+        className="bg-zinc-950 border border-stadium-border rounded-2xl p-4 flex items-center gap-4 relative overflow-hidden group"
+        role="status"
+        aria-live="polite"
+      >
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-electric-green" />
         <div className="w-10 h-10 rounded-xl bg-electric-green/10 flex items-center justify-center text-electric-green shrink-0">
           <BrainCircuit size={20} className={isAiLoading ? "animate-pulse" : ""} />
@@ -64,18 +73,13 @@ export const Dashboard: React.FC = () => {
             <Sparkles size={10} /> VenueFlow Intelligence • Active
           </p>
           <p className="text-sm font-bold text-white italic truncate lg:whitespace-normal">
-            {aiInsight}
+            {INSIGHTS[insightIndex]}
           </p>
         </div>
         <button 
-           onClick={async () => {
-             setIsAiLoading(true);
-             const insight = await generateStadiumInsights('Fan Experience Dashboard');
-             setAiInsight(insight);
-             setIsAiLoading(false);
-           }}
+           onClick={rotateInsight}
            className="hidden md:block text-[10px] font-black text-electric-green uppercase tracking-widest hover:bg-electric-green/10 px-4 py-2 rounded-lg border border-electric-green/20 transition-all"
-           aria-label="Refresh AI Insight"
+           aria-label="Refresh Insight"
         >
           Refine
         </button>

@@ -18,9 +18,12 @@ import {
     Zap
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useAuth } from '../context/AuthContext';
+import { LogOut } from 'lucide-react';
 
 export const SettingsModule: React.FC = () => {
     const [activeSection, setActiveSection] = useState<'general' | 'notifications' | 'accessibility' | 'account'>('general');
+    const { user, logout } = useAuth();
 
     const sections = [
         { id: 'general', label: 'General', icon: Map },
@@ -173,17 +176,30 @@ export const SettingsModule: React.FC = () => {
                                      <div className="space-y-4">
                                         <div className="flex items-center justify-between p-6 bg-stadium-black border border-white/5 rounded-[32px]">
                                             <div className="flex items-center gap-6">
-                                                <div className="w-16 h-16 rounded-2xl border border-white/10 overflow-hidden">
-                                                     <img src="https://picsum.photos/seed/user-main/160/160" alt="Avatar" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                                                <div className="w-16 h-16 rounded-2xl border border-white/10 overflow-hidden flex items-center justify-center bg-zinc-900">
+                                                     {user?.photoURL ? (
+                                                        <img src={user.photoURL} alt="Avatar" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                                                     ) : (
+                                                        <User size={30} className="text-zinc-700" />
+                                                     )}
                                                 </div>
                                                 <div>
-                                                    <p className="text-white font-black italic uppercase tracking-tight">Sarvesh Kolhe</p>
-                                                    <p className="text-[10px] text-electric-green font-bold uppercase tracking-widest">VIP Platinum Member</p>
+                                                    <p className="text-white font-black italic uppercase tracking-tight">
+                                                        {user ? user.displayName || user.email : 'Guest Node'}
+                                                    </p>
+                                                    <p className="text-[10px] text-electric-green font-bold uppercase tracking-widest">
+                                                        {user ? 'VIP Platinum Member' : 'Limited Access'}
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <button className="text-[10px] font-black text-zinc-400 uppercase tracking-widest hover:text-white transition-colors border border-white/10 px-6 py-3 rounded-full">
-                                                Modify Node
-                                            </button>
+                                            {user && (
+                                                <button 
+                                                    onClick={() => logout()}
+                                                    className="flex items-center gap-2 text-[10px] font-black text-red-500 uppercase tracking-widest hover:text-red-400 transition-colors border border-red-500/20 px-6 py-3 rounded-full bg-red-500/5"
+                                                >
+                                                    <LogOut size={14} /> Terminate Session
+                                                </button>
+                                            )}
                                         </div>
                                      </div>
                                 </div>
