@@ -31,7 +31,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeModule, onModuleChange }
   const safetyTab = { id: 'safety', icon: ShieldAlert, label: 'SafetyNet SOS' };
 
   return (
-    <aside className="hidden lg:flex flex-col w-72 h-screen bg-stadium-black border-r border-stadium-border sticky top-0 py-8 px-6 overflow-y-auto">
+    <aside className="hidden lg:flex flex-col w-72 h-screen bg-stadium-black border-r border-stadium-border sticky top-0 py-8 px-6 overflow-y-auto" aria-label="Main Sidebar">
       <div className="mb-10 px-2">
         <h1 className="text-2xl font-black tracking-tighter text-[#fafafa] italic">
           VENUE<span className="text-electric-green">FLOW</span>
@@ -41,7 +41,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeModule, onModuleChange }
         </p>
       </div>
 
-      <nav className="flex-1 space-y-2">
+      <nav className="flex-1 space-y-2" aria-label="Navigation Menu">
         <div className="text-[10px] text-zinc-600 font-black uppercase tracking-[0.2em] mb-4 px-2">
           Management
         </div>
@@ -53,6 +53,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeModule, onModuleChange }
             <button
               key={tab.id}
               onClick={() => onModuleChange(tab.id as Module)}
+              aria-label={`Go to ${tab.label}`}
+              aria-current={isActive ? 'page' : undefined}
               className={cn(
                 "w-full flex items-center justify-between group px-4 py-3 rounded-2xl transition-all duration-300 border glass-card",
                 isActive 

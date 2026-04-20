@@ -1,8 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import * as d3 from 'd3';
 import { motion } from 'motion/react';
-import { Navigation, Clock, Users, ArrowRight } from 'lucide-react';
+import { Navigation, Clock, Users, ArrowRight, Accessibility } from 'lucide-react';
 import { cn } from '../lib/utils';
+
+interface HeatmapPoint {
+    x: number;
+    y: number;
+    value: number;
+}
 
 export const SmartFlowNavigator: React.FC = () => {
     const svgRef = useRef<SVGSVGElement>(null);
@@ -15,6 +21,16 @@ export const SmartFlowNavigator: React.FC = () => {
         { from: "Sky Lounge", to: "VIP Parking", saving: "6 mins", reason: "Elevator Service" }
     ];
 
+    const points = useMemo<HeatmapPoint[]>(() => {
+        const width = 800;
+        const height = 600;
+        return d3.range(50).map(() => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            value: Math.random()
+        }));
+    }, []);
+
     useEffect(() => {
         if (!svgRef.current) return;
 
@@ -22,25 +38,19 @@ export const SmartFlowNavigator: React.FC = () => {
         const width = 800;
         const height = 600;
         
-        const points = d3.range(50).map(() => ({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            value: Math.random()
-        }));
-
         svg.selectAll('*').remove();
 
         // Heatmap colors aligned with theme green/dark
         const colorScale = d3.scaleSequential(d3.interpolateGreens).domain([0, 1]);
 
-        svg.selectAll('circle')
+        svg.selectAll<SVGCircleElement, HeatmapPoint>('circle')
             .data(points)
             .enter()
             .append('circle')
-            .attr('cx', d => d.x)
-            .attr('cy', d => d.y)
+            .attr('cx', (d: HeatmapPoint) => d.x)
+            .attr('cy', (d: HeatmapPoint) => d.y)
             .attr('r', 50)
-            .attr('fill', d => colorScale(d.value))
+            .attr('fill', (d: HeatmapPoint) => colorScale(d.value))
             .attr('fill-opacity', 0.15)
             .attr('filter', 'blur(20px)');
 
@@ -90,10 +100,16 @@ export const SmartFlowNavigator: React.FC = () => {
 
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                 {/* Heatmap Section */}
-                <div className="xl:col-span-2 space-y-6">
+                <div className="xl:col-span-2 space-y-6" role="region" aria-label="Interactive Stadium Heatmap">
                     <div className="bg-stadium-card border border-stadium-border rounded-[32px] overflow-hidden relative shadow-2xl group min-h-[500px] lg:min-h-[600px] glass-card">
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-900/50 to-transparent pointer-events-none" />
-                        <svg ref={svgRef} viewBox="0 0 800 600" className="w-full h-full relative z-10 opacity-90" />
+                        <svg 
+                            ref={svgRef} 
+                            viewBox="0 0 800 600" 
+                            className="w-full h-full relative z-10 opacity-90" 
+                            aria-label="Live crowd density map"
+                            role="img"
+                        />
                         
                         <div className="absolute top-8 left-8 z-20 space-y-3">
                             <div className="bg-black/60 backdrop-blur-md border border-white/5 px-4 py-2 rounded-xl flex items-center gap-3">
@@ -157,6 +173,8 @@ export const SmartFlowNavigator: React.FC = () => {
                                 whileHover={{ x: 4 }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={() => setSelectedRoute(item)}
+                                aria-label={`Route from ${item.from} to ${item.to}, saving ${item.saving}`}
+                                aria-pressed={selectedRoute?.from === item.from}
                                 className={cn(
                                     "w-full text-left bg-stadium-card border p-6 rounded-[24px] flex flex-col shadow-md transition-all duration-300 relative overflow-hidden glass-card",
                                     selectedRoute?.from === item.from 

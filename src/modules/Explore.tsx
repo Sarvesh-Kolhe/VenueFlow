@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { 
   Zap, 
@@ -8,10 +8,26 @@ import {
   Bell,
   Search,
   User,
-  ArrowRight
+  ArrowRight,
+  BrainCircuit,
+  Sparkles
 } from 'lucide-react';
+import { generateStadiumInsights } from '../lib/gemini';
 
 export const Dashboard: React.FC = () => {
+  const [aiInsight, setAiInsight] = useState<string>('Initializing AI core...');
+  const [isAiLoading, setIsAiLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchInsight = async () => {
+      setIsAiLoading(true);
+      const insight = await generateStadiumInsights('Fan Experience Dashboard');
+      setAiInsight(insight);
+      setIsAiLoading(false);
+    };
+    fetchInsight();
+  }, []);
+
   return (
     <div className="p-6 lg:p-10 space-y-8 lg:space-y-12 max-w-7xl mx-auto bg-stadium-black min-h-screen">
       {/* Header - Mobile only (Desktop has top header in App.tsx) */}
@@ -36,6 +52,34 @@ export const Dashboard: React.FC = () => {
           </div>
         </div>
       </header>
+
+      {/* AI Insights Bar */}
+      <div className="bg-zinc-950 border border-stadium-border rounded-2xl p-4 flex items-center gap-4 relative overflow-hidden group">
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-electric-green" />
+        <div className="w-10 h-10 rounded-xl bg-electric-green/10 flex items-center justify-center text-electric-green shrink-0">
+          <BrainCircuit size={20} className={isAiLoading ? "animate-pulse" : ""} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2 mb-1">
+            <Sparkles size={10} /> VenueFlow Intelligence • Active
+          </p>
+          <p className="text-sm font-bold text-white italic truncate lg:whitespace-normal">
+            {aiInsight}
+          </p>
+        </div>
+        <button 
+           onClick={async () => {
+             setIsAiLoading(true);
+             const insight = await generateStadiumInsights('Fan Experience Dashboard');
+             setAiInsight(insight);
+             setIsAiLoading(false);
+           }}
+           className="hidden md:block text-[10px] font-black text-electric-green uppercase tracking-widest hover:bg-electric-green/10 px-4 py-2 rounded-lg border border-electric-green/20 transition-all"
+           aria-label="Refresh AI Insight"
+        >
+          Refine
+        </button>
+      </div>
 
       {/* Hero Section - Responsive Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
@@ -122,41 +166,45 @@ export const Dashboard: React.FC = () => {
          ))}
       </div>
 
-      {/* gamification & rewards - expansive for web */}
-      <div className="bg-stadium-card border border-stadium-border p-8 lg:p-10 rounded-[32px] shadow-xl relative overflow-hidden flex flex-col lg:flex-row lg:items-center gap-8 glass-card">
-         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-electric-green/5 to-transparent pointer-events-none" />
-         
-         <div className="flex-1">
-            <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 bg-zinc-900 border border-stadium-border rounded-2xl flex items-center justify-center shadow-inner">
-                    <Award className="text-electric-green" size={28} />
-                </div>
-                <div>
-                     <h4 className="text-2xl font-black text-white italic uppercase tracking-tighter tracking-tight">XP Progression</h4>
-                     <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">Earned through eco-disposal & low-flow nav</p>
-                </div>
-            </div>
-            <div className="flex justify-between items-center mb-3">
-                <span className="text-[10px] uppercase font-black text-text-secondary tracking-[0.2em]">Current Engagement Level</span>
-                <span className="text-xs font-black text-electric-green tracking-tight uppercase italic">LEGENDARY (85%)</span>
-            </div>
-            <div className="h-2 bg-zinc-800/80 rounded-full overflow-hidden p-[2px]">
-                <div className="h-full bg-electric-green w-[85%] rounded-full shadow-[0_0_15px_#22c55e]" />
-            </div>
-         </div>
+      {/* Sustainability & Rewards Tracker */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-stadium-card border border-stadium-border p-8 lg:p-10 rounded-[32px] shadow-xl relative overflow-hidden flex flex-col lg:flex-row lg:items-center gap-8 glass-card">
+           <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-electric-green/5 to-transparent pointer-events-none" />
+           
+           <div className="flex-1">
+              <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 bg-zinc-900 border border-stadium-border rounded-2xl flex items-center justify-center shadow-inner">
+                      <Award className="text-electric-green" size={28} />
+                  </div>
+                  <div>
+                       <h4 className="text-2xl font-black text-white italic uppercase tracking-tighter tracking-tight">XP Progression</h4>
+                       <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">Earned through eco-disposal & low-flow nav</p>
+                  </div>
+              </div>
+              <div className="flex justify-between items-center mb-3">
+                  <span className="text-[10px] uppercase font-black text-text-secondary tracking-[0.2em]">Current Engagement Level</span>
+                  <span className="text-xs font-black text-electric-green tracking-tight uppercase italic">LEGENDARY (85%)</span>
+              </div>
+              <div className="h-2 bg-zinc-800/80 rounded-full overflow-hidden p-[2px]">
+                  <div className="h-full bg-electric-green w-[85%] rounded-full shadow-[0_0_15px_#22c55e]" />
+              </div>
+           </div>
+        </div>
 
-         <div className="lg:w-[320px] bg-white/5 border border-white/5 p-6 rounded-2xl backdrop-blur-sm self-stretch flex flex-col justify-center">
-            <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest mb-2">Upcoming Unlock</p>
-            <p className="text-lg font-black text-white italic leading-tight uppercase">VIP SKYBOX REPLAY ACCESS</p>
-            <div className="mt-4 flex -space-x-2">
-                {[1,2,3,4].map(i => (
-                    <div key={i} className="w-8 h-8 rounded-full border-2 border-stadium-card bg-zinc-800 overflow-hidden">
-                        <img src={`https://picsum.photos/seed/fan${i}/32/32`} alt="fan" className="w-full h-full object-cover grayscale" referrerPolicy="no-referrer" />
-                    </div>
-                ))}
-                <div className="w-8 h-8 rounded-full border-2 border-stadium-card bg-electric-green font-black text-[10px] text-black flex items-center justify-center">+12k</div>
+        <div className="bg-stadium-card border border-stadium-border p-8 rounded-[32px] glass-card flex flex-col justify-between">
+            <div className="flex justify-between items-start">
+                <div>
+                     <p className="text-[10px] uppercase font-black text-zinc-500 tracking-widest mb-1">Fan Carbon Offset</p>
+                     <p className="text-2xl font-black text-white italic uppercase">2.4kg <span className="text-electric-green text-sm not-italic uppercase">CO2 SAVED</span></p>
+                </div>
+                <div className="bg-electric-green/10 p-3 rounded-xl text-electric-green">
+                    <TrendingUp size={20} />
+                </div>
             </div>
-         </div>
+            <p className="text-xs text-zinc-400 mt-4 leading-relaxed">
+                By choosing SmartFlow routes and participating in the stadium circular economy, you've achieved a top 5% fan sustainability rank.
+            </p>
+        </div>
       </div>
     </div>
   );

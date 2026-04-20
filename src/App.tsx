@@ -17,6 +17,7 @@ import { IntroPage } from './modules/Intro';
 import { motion, AnimatePresence } from 'motion/react';
 import { Bell, Search, User, X } from 'lucide-react';
 import { NotificationsPanel, type Notification } from './components/NotificationsPanel';
+import { APP_NAME } from './constants';
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -94,12 +95,15 @@ export default function App() {
 
       <div className="flex-1 flex flex-col min-h-screen relative overflow-x-hidden">
         {/* Mobile Top Bar */}
-        <header className="lg:hidden flex items-center justify-between px-6 py-4 border-b border-stadium-border sticky top-0 bg-black/80 backdrop-blur-xl z-30">
+        <header className="lg:hidden flex items-center justify-between px-6 py-4 border-b border-stadium-border sticky top-0 bg-black/80 backdrop-blur-xl z-30" role="banner">
           <h1 className="text-xl font-black italic tracking-tighter uppercase leading-none">Venue<span className="text-electric-green">Flow</span></h1>
           <div className="relative">
             <button 
               onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
               className="relative p-2 text-zinc-400 hover:text-white transition-colors"
+              aria-label={`Notifications ${unreadCount > 0 ? `(${unreadCount} unread)` : ''}`}
+              aria-expanded={isNotificationsOpen}
+              aria-haspopup="true"
             >
               <Bell size={20} />
               {unreadCount > 0 && (
@@ -127,14 +131,15 @@ export default function App() {
         </header>
 
         {/* Top Header - Desktop/Laptop */}
-        <header className="hidden lg:flex items-center justify-between px-10 py-6 border-b border-stadium-border sticky top-0 bg-black/80 backdrop-blur-xl z-30">
+        <header className="hidden lg:flex items-center justify-between px-10 py-6 border-b border-stadium-border sticky top-0 bg-black/80 backdrop-blur-xl z-30" role="banner">
           <div className="flex items-center gap-10">
             <div className="relative group">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-electric-green transition-colors" size={18} />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-electric-green transition-colors" size={18} aria-hidden="true" />
               <input 
                 type="text" 
                 placeholder="Search events, seats, or amenities..." 
                 className="bg-stadium-card border border-stadium-border rounded-xl py-2.5 pl-10 pr-4 w-96 text-sm font-medium focus:outline-none focus:border-electric-green/30 transition-all"
+                aria-label="Search"
               />
             </div>
           </div>
@@ -144,6 +149,9 @@ export default function App() {
               <button 
                 onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
                 className="relative p-2 text-zinc-400 hover:text-white transition-colors"
+                aria-label={`Notifications ${unreadCount > 0 ? `(${unreadCount} unread)` : ''}`}
+                aria-expanded={isNotificationsOpen}
+                aria-haspopup="true"
               >
                 <Bell size={20} />
                 {unreadCount > 0 && (
@@ -172,6 +180,7 @@ export default function App() {
             <button 
               onClick={() => setActiveModule('settings')}
               className="flex items-center gap-3 group px-4 py-2 rounded-2xl hover:bg-white/5 transition-all"
+              aria-label="User Profile and Settings"
             >
                <div className="text-right">
                   <p className="text-sm font-black tracking-tight leading-none uppercase group-hover:text-electric-green transition-colors">S. Kolhe</p>
